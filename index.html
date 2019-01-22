@@ -195,8 +195,7 @@
 <p>script标签引入<br>“<a href="https://res.wx.qq.com/open/js/jweixin-1.0.0.js&quot;" target="_blank" rel="noopener">https://res.wx.qq.com/open/js/jweixin-1.0.0.js&quot;</a></p>
 </blockquote>
 <p>2.通过config接口注入权限验证</p>
-<p>//微信签名获取</p>
-<blockquote>
+<h3 id="微信签名获取"><a href="#微信签名获取" class="headerlink" title="微信签名获取"></a>微信签名获取</h3><blockquote>
 <p>必须用当前页面url去获取签名，hash模式用location.href.split(“#”)[0];</p>
 </blockquote>
 <hr>
@@ -224,7 +223,8 @@ wxsignGet(ob).then(res =&gt; {
 });     
 </code></pre><hr>
 <hr>
-<h2 id="自定义分享功能"><a href="#自定义分享功能" class="headerlink" title="   //自定义分享功能"></a>   //自定义分享功能</h2><pre><code>wxShare() {
+<h3 id="自定义分享功能"><a href="#自定义分享功能" class="headerlink" title="自定义分享功能"></a>自定义分享功能</h3><hr>
+<pre><code>wxShare() {
   var self = this;
   console.log(
     &quot;nonceStr: &quot; + self.nonceStr + &quot;signature: &quot; + self.signature,
