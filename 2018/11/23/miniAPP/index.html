@@ -8,19 +8,19 @@
   <link rel="dns-prefetch" href="http://yoursite.com">
   <title>miniapp | 星月夜的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="&amp;emsp;&amp;emsp;通过之前对二维码小程序的开发，对开发中遇到的一些问题进行总结。 那些困扰我的问题 background-image：背景颜色；不要使用相对地址，相对地址无法正常显示；要使用绝对地址（放服务器上）；如 style=’background-image:url(“https://q.gree.com/qrmini/proBG.png&amp;quot;)&amp;#39;  https: 小程序">
+  <meta name="description" content="&amp;emsp;&amp;emsp;通过之前对二维码小程序的开发，对开发中遇到的一些问题进行总结。 那些常见的问题 background-image：背景颜色；不要使用相对地址，相对地址无法正常显示；要使用绝对地址（放服务器上）；如 style=’background-image:url(“https://q.gree.com/qrmini/proBG.png&amp;quot;)&amp;#39;  https: 小程序的">
 <meta name="keywords" content="web 3D unity">
 <meta property="og:type" content="article">
 <meta property="og:title" content="miniapp">
 <meta property="og:url" content="http://yoursite.com/2018/11/23/miniAPP/index.html">
 <meta property="og:site_name" content="星月夜的博客">
-<meta property="og:description" content="&amp;emsp;&amp;emsp;通过之前对二维码小程序的开发，对开发中遇到的一些问题进行总结。 那些困扰我的问题 background-image：背景颜色；不要使用相对地址，相对地址无法正常显示；要使用绝对地址（放服务器上）；如 style=’background-image:url(“https://q.gree.com/qrmini/proBG.png&amp;quot;)&amp;#39;  https: 小程序">
+<meta property="og:description" content="&amp;emsp;&amp;emsp;通过之前对二维码小程序的开发，对开发中遇到的一些问题进行总结。 那些常见的问题 background-image：背景颜色；不要使用相对地址，相对地址无法正常显示；要使用绝对地址（放服务器上）；如 style=’background-image:url(“https://q.gree.com/qrmini/proBG.png&amp;quot;)&amp;#39;  https: 小程序的">
 <meta property="og:locale" content="zh_cn">
 <meta property="og:image" content="http://yoursite.com/2018/11/23/assets/img/minikey.png">
-<meta property="og:updated_time" content="2018-11-26T12:25:10.564Z">
+<meta property="og:updated_time" content="2018-11-26T12:52:30.042Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="miniapp">
-<meta name="twitter:description" content="&amp;emsp;&amp;emsp;通过之前对二维码小程序的开发，对开发中遇到的一些问题进行总结。 那些困扰我的问题 background-image：背景颜色；不要使用相对地址，相对地址无法正常显示；要使用绝对地址（放服务器上）；如 style=’background-image:url(“https://q.gree.com/qrmini/proBG.png&amp;quot;)&amp;#39;  https: 小程序">
+<meta name="twitter:description" content="&amp;emsp;&amp;emsp;通过之前对二维码小程序的开发，对开发中遇到的一些问题进行总结。 那些常见的问题 background-image：背景颜色；不要使用相对地址，相对地址无法正常显示；要使用绝对地址（放服务器上）；如 style=’background-image:url(“https://q.gree.com/qrmini/proBG.png&amp;quot;)&amp;#39;  https: 小程序的">
 <meta name="twitter:image" content="http://yoursite.com/2018/11/23/assets/img/minikey.png">
   
     <link rel="alternative" href="/atom.xml" title="星月夜的博客" type="application/atom+xml">
@@ -182,7 +182,7 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>&emsp;&emsp;通过之前对二维码小程序的开发，对开发中遇到的一些问题进行总结。</p>
-<h1 id="那些困扰我的问题"><a href="#那些困扰我的问题" class="headerlink" title="那些困扰我的问题"></a>那些困扰我的问题</h1><ol>
+<h1 id="那些常见的问题"><a href="#那些常见的问题" class="headerlink" title="那些常见的问题"></a>那些常见的问题</h1><ol>
 <li><p>background-image：背景颜色；不要使用相对地址，相对地址无法正常显示；要使用绝对地址（放服务器上）；如 style=’background-image:url(“<a href="https://q.gree.com/qrmini/proBG.png&quot;)&#39;" target="_blank" rel="noopener">https://q.gree.com/qrmini/proBG.png&quot;)&#39;</a></p>
 </li>
 <li><p>https: 小程序的上线发布必须使用https://; 在微信开发者后台配置 接口、外链等都要使用https 在后台配置，需要把验证文件丢到服务器，详情见微信公众平台<a href="https://mp.weixin.qq.com" target="_blank" rel="noopener">https://mp.weixin.qq.com</a></p>
@@ -193,7 +193,19 @@
 </li>
 <li><p>web-view跳外链：<web-view src="https://www.xxx.com"></web-view>  小程序跳外链可采用web-view标签，单独建立一个页面，用 wx.navigateTo({ url: ‘../../pages/mall/mall’ })<br>跳转页面</p>
 </li>
-<li></li>
+<li><p>参数传递： </p>
+</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Page(&#123;  </span><br><span class="line">  data: &#123;</span><br><span class="line">    testStr: &apos;xiaochengxu&apos;</span><br><span class="line">  &#125;,</span><br><span class="line">  next: function(e)&#123;</span><br><span class="line">    wx.navigateTo(&#123;</span><br><span class="line">      url: &apos;/test/test?str=&apos;+this.data.testStr</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Page(&#123;</span><br><span class="line">  onLoad:function(options)&#123;  </span><br><span class="line">    console.log(&quot;接收到的参数是str=&quot;+options.str);  </span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>打印内容：接收到的参数是str=xiaochengxu</p>
+<ol start="7">
+<li><p>this.setData:<br>一般我们想修改data里面的值，往往都是因为这些数据都在index.wxml中绑定了，可以实现动态修改并实时刷新显示。<br>在你绑定的自定义函数（往往都是绑定的点击事件）里面，<br>this.setData({<br>key:value<br>})</p>
+</li>
+<li><p>绑定class：<br>vue:全用v-bind，或者简写为:bind,和本有的class分开写</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;div class=&quot;test&quot; v-bind:class=&quot;&#123; active: isActive &#125;&quot;&gt;&lt;/div&gt;</span><br></pre></td></tr></table></figure>
+<p>微信小程序：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;view class=&quot;test &#123;&#123;isActive ? &apos;active&apos;:&apos;&apos; &#125;&#125;&quot;&gt;&lt;/view&gt;</span><br></pre></td></tr></table></figure></li>
 </ol>
 
       
@@ -299,6 +311,15 @@
   
 <nav id="article-nav">
   
+    <a href="/2019/01/21/wechartshare/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          前端h5微信分享功能(vue)
+        
+      </div>
+    </a>
+  
   
     <a href="/2018/11/22/webpack工程实践（二）/" id="article-nav-older" class="article-nav-link-wrap">
       <div class="article-nav-title"></div>
@@ -328,7 +349,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#那些困扰我的问题"><span class="toc-number">1.</span> <span class="toc-text">那些困扰我的问题</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#那些常见的问题"><span class="toc-number">1.</span> <span class="toc-text">那些常见的问题</span></a></li></ol>
                     </div>
                 </span>
             </div>
@@ -357,7 +378,7 @@
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2018 leayun frontend group
+    		&copy; 2019 leayun frontend group
     	</div>
       	<div class="footer-right">
       		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten

@@ -160,6 +160,181 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-wechartshare" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/01/21/wechartshare/">前端h5微信分享功能(vue)</a>
+    </h1>
+  
+
+        
+        <a href="/2019/01/21/wechartshare/" class="archive-article-date">
+  	<time datetime="2019-01-20T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-01-21</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>&emsp;&emsp;由于项目需求，要对h5页面进行微信分享，朋友和朋友圈功能。现对踩过的坑和流程进行总结。</p>
+<blockquote>
+<p>首先你要有个微信公众号，公司级的。个人的不支持。</p>
+</blockquote>
+<blockquote>
+<p>登录<a href="https://mp.weixin.qq.com/" target="_blank">微信公众平台</a>配置后端的服务器ip白名单和js安全域名<br><img src="../assets/img/ip.png" alt="ip">;<br><img src="../assets/img/jssafe.png" alt="jssafe">;</p>
+</blockquote>
+<blockquote>
+<p>后端获取微信签名<br>这个步骤需要后端服务器和微信服务器进行交互，获得「网页授权access_token」，根据 access_token 把关键的几个参数算出来，传给前端。这几个参数分别是：<br>appId , timestamp , nonceStr , signature<br>（因为本文主要针对前端开发者，后端的内容就不展开了）注意配置ip白名单 见上一步！！！</p>
+</blockquote>
+<p>##前端代码</p>
+<ol>
+<li>引入微信JSSDK;<script src="https://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+
+</li>
+</ol>
+<p>2.通过config接口注入权限验证</p>
+<p>//微信签名获取</p>
+<h2 id="必须用当前页面url去获取签名，hash模式用location-href-split-“-”-0"><a href="#必须用当前页面url去获取签名，hash模式用location-href-split-“-”-0" class="headerlink" title="必须用当前页面url去获取签名，hash模式用location.href.split(“#”)[0];"></a>必须用当前页面url去获取签名，hash模式用location.href.split(“#”)[0];</h2><pre><code>let url = &quot;&quot;;
+if(this._details == &quot;https://q.gree.com/#/detail&quot;) {
+  this.url = location.href.split(&quot;#&quot;)[0]; //分享主页
+ } else {
+  this.url =&quot;https://&quot; + this._details; //分享详情页
+  }
+let ob = {
+  // url: location.href.split(&quot;#&quot;)[0],
+  detailurl: location.href.split(&quot;#&quot;)[0],
+
+  pp: this.pp,
+  xh: this.xh,
+};
+wxsignGet(ob).then(res =&gt; {
+  console.log(res.data);
+  this.signature = res.data.data.signature;
+  this.timestamp = res.data.data.timestamp;
+  this.nonceStr = res.data.data.noncestr;
+  console.log(&quot;nonceStr: &quot; + this.nonceStr);
+  //自定义分享
+  this.wxShare();
+});     
+</code></pre><hr>
+<hr>
+<h2 id="自定义分享功能"><a href="#自定义分享功能" class="headerlink" title="   //自定义分享功能"></a>   //自定义分享功能</h2><pre><code>wxShare() {
+  var self = this;
+  console.log(
+    &quot;nonceStr: &quot; + self.nonceStr + &quot;signature: &quot; + self.signature,
+  );
+  wx.config({
+    debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+
+    appId: &quot;wxf540****1559d4&quot;, // 必填，公众号的唯一标识
+
+    timestamp: self.timestamp, //必填，生成签名的时间戳
+
+    nonceStr: self.nonceStr, //必填，生成签名的随机串
+
+    signature: self.signature, //必填，签名，见附录1
+
+    jsApiList: [&apos;onMenuShareTimeline&apos;,
+                &apos;onMenuShareAppMessage&apos;] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+
+});
+   wx.ready(function(){
+        var link = self.url;
+        var imgurl = self.sharePics;
+        var title = self.xh;
+        var desc = self.desc;
+        //分享到朋友圈
+        wx.onMenuShareTimeline({
+            title: title, // 分享标题
+            desc: desc, // 分享描述
+            link: link, // 分享链接
+            imgUrl: imgurl, // 分享图标
+            success: function () {
+                // alert(&quot;分享成功&quot;)
+            },
+            cancel: function () {
+                // alert(&quot;分享失败&quot;)
+            }
+        });
+        //分享给朋友
+        wx.onMenuShareAppMessage({
+            title: title, // 分享标题
+            desc: desc, // 分享描述
+            link: link, // 分享链接
+            imgUrl: imgurl, // 分享图标
+            type: &apos;&apos;, // 分享类型,music、video或link，不填默认为link
+            dataUrl: &apos;&apos;, // 如果type是music或video，则要提供数据链接，默认为空
+            success: function () {
+                // alert(&quot;分享成功&quot;)
+            },
+            cancel: function () {
+                // alert(&quot;分享失败&quot;)
+            }
+        });
+   });
+</code></pre><h2 id=""><a href="#" class="headerlink" title=" },"></a> },</h2><blockquote>
+<p>link // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致</p>
+</blockquote>
+<blockquote>
+<p>开发的时候，一定要下载一个微信开发者工具，在那里面进行微信分享测试。代码开启 debug 模式后，如果签名错误，微信开发者工具会直接提醒你的。判断签名是否正确非常重要。</p>
+</blockquote>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">总结</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/01/21/wechartshare/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-miniAPP" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -181,7 +356,7 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>&emsp;&emsp;通过之前对二维码小程序的开发，对开发中遇到的一些问题进行总结。</p>
-<h1 id="那些困扰我的问题"><a href="#那些困扰我的问题" class="headerlink" title="那些困扰我的问题"></a>那些困扰我的问题</h1><ol>
+<h1 id="那些常见的问题"><a href="#那些常见的问题" class="headerlink" title="那些常见的问题"></a>那些常见的问题</h1><ol>
 <li><p>background-image：背景颜色；不要使用相对地址，相对地址无法正常显示；要使用绝对地址（放服务器上）；如 style=’background-image:url(“<a href="https://q.gree.com/qrmini/proBG.png&quot;)&#39;" target="_blank" rel="noopener">https://q.gree.com/qrmini/proBG.png&quot;)&#39;</a></p>
 </li>
 <li><p>https: 小程序的上线发布必须使用https://; 在微信开发者后台配置 接口、外链等都要使用https 在后台配置，需要把验证文件丢到服务器，详情见微信公众平台<a href="https://mp.weixin.qq.com" target="_blank" rel="noopener">https://mp.weixin.qq.com</a></p>
@@ -192,7 +367,19 @@
 </li>
 <li><p>web-view跳外链：<web-view src="https://www.xxx.com"></web-view>  小程序跳外链可采用web-view标签，单独建立一个页面，用 wx.navigateTo({ url: ‘../../pages/mall/mall’ })<br>跳转页面</p>
 </li>
-<li></li>
+<li><p>参数传递： </p>
+</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Page(&#123;  </span><br><span class="line">  data: &#123;</span><br><span class="line">    testStr: &apos;xiaochengxu&apos;</span><br><span class="line">  &#125;,</span><br><span class="line">  next: function(e)&#123;</span><br><span class="line">    wx.navigateTo(&#123;</span><br><span class="line">      url: &apos;/test/test?str=&apos;+this.data.testStr</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Page(&#123;</span><br><span class="line">  onLoad:function(options)&#123;  </span><br><span class="line">    console.log(&quot;接收到的参数是str=&quot;+options.str);  </span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>打印内容：接收到的参数是str=xiaochengxu</p>
+<ol start="7">
+<li><p>this.setData:<br>一般我们想修改data里面的值，往往都是因为这些数据都在index.wxml中绑定了，可以实现动态修改并实时刷新显示。<br>在你绑定的自定义函数（往往都是绑定的点击事件）里面，<br>this.setData({<br>key:value<br>})</p>
+</li>
+<li><p>绑定class：<br>vue:全用v-bind，或者简写为:bind,和本有的class分开写</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;div class=&quot;test&quot; v-bind:class=&quot;&#123; active: isActive &#125;&quot;&gt;&lt;/div&gt;</span><br></pre></td></tr></table></figure>
+<p>微信小程序：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;view class=&quot;test &#123;&#123;isActive ? &apos;active&apos;:&apos;&apos; &#125;&#125;&quot;&gt;&lt;/view&gt;</span><br></pre></td></tr></table></figure></li>
 </ol>
 
       
@@ -930,7 +1117,7 @@
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2018 leayun frontend group
+    		&copy; 2019 leayun frontend group
     	</div>
       	<div class="footer-right">
       		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
