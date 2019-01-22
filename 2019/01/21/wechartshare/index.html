@@ -18,7 +18,7 @@
 <meta property="og:locale" content="zh_cn">
 <meta property="og:image" content="http://yoursite.com/2019/01/21/assets/img/ip.png">
 <meta property="og:image" content="http://yoursite.com/2019/01/21/assets/img/jssafe.png">
-<meta property="og:updated_time" content="2019-01-22T01:21:41.395Z">
+<meta property="og:updated_time" content="2019-01-22T01:54:44.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="前端h5微信分享功能(vue)">
 <meta name="twitter:description" content="&amp;emsp;&amp;emsp;由于项目需求，要对h5页面进行微信分享，朋友和朋友圈功能。现对踩过的坑和流程进行总结。  首先你要有个微信公众号，公司级的。个人的不支持。   登录微信公众平台配置后端的服务器ip白名单和js安全域名;;   后端获取微信签名这个步骤需要后端服务器和微信服务器进行交互，获得「网页授权access_token」，根据 access_token 把关键的几个参数算出来，传给前端">
@@ -193,14 +193,17 @@
 <p>后端获取微信签名<br>这个步骤需要后端服务器和微信服务器进行交互，获得「网页授权access_token」，根据 access_token 把关键的几个参数算出来，传给前端。这几个参数分别是：<br>appId , timestamp , nonceStr , signature<br>（因为本文主要针对前端开发者，后端的内容就不展开了）注意配置ip白名单 见上一步！！！</p>
 </blockquote>
 <p>##前端代码</p>
-<ol>
-<li>引入微信JSSDK;<script src="https://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
-
-</li>
-</ol>
+<p>1.引入微信JSSDK;</p>
+<blockquote>
+<p>script标签引入<br>“<a href="https://res.wx.qq.com/open/js/jweixin-1.0.0.js&quot;" target="_blank" rel="noopener">https://res.wx.qq.com/open/js/jweixin-1.0.0.js&quot;</a></p>
+</blockquote>
 <p>2.通过config接口注入权限验证</p>
 <p>//微信签名获取</p>
-<h2 id="必须用当前页面url去获取签名，hash模式用location-href-split-“-”-0"><a href="#必须用当前页面url去获取签名，hash模式用location-href-split-“-”-0" class="headerlink" title="必须用当前页面url去获取签名，hash模式用location.href.split(“#”)[0];"></a>必须用当前页面url去获取签名，hash模式用location.href.split(“#”)[0];</h2><pre><code>let url = &quot;&quot;;
+<blockquote>
+<p>必须用当前页面url去获取签名，hash模式用location.href.split(“#”)[0];</p>
+</blockquote>
+<hr>
+<pre><code>let url = &quot;&quot;;
 if(this._details == &quot;https://q.gree.com/#/detail&quot;) {
   this.url = location.href.split(&quot;#&quot;)[0]; //分享主页
  } else {
