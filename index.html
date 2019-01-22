@@ -185,7 +185,7 @@
 <p>首先你要有个微信公众号，公司级的。个人的不支持。</p>
 </blockquote>
 <blockquote>
-<p>登录<a href="https://mp.weixin.qq.com/" target="_blank">微信公众平台</a>配置后端的服务器ip白名单和js安全域名<br><img src="../assets/img/ip.png" alt="ip">;<br><img src="../assets/img/jssafe.png" alt="jssafe">;</p>
+<p>登录<a href="https://mp.weixin.qq.com/" target="_blank">微信公众平台</a>配置后端的服务器ip白名单和js安全域名<br><img src="https://github.com/lyq12580/CODE/blob/master/ip.png" alt="avatar"><br><img src="https://github.com/lyq12580/CODE/blob/master/jssafe.png" alt="avatar"></p>
 </blockquote>
 <blockquote>
 <p>后端获取微信签名<br>这个步骤需要后端服务器和微信服务器进行交互，获得「网页授权access_token」，根据 access_token 把关键的几个参数算出来，传给前端。这几个参数分别是：<br>appId , timestamp , nonceStr , signature<br>（因为本文主要针对前端开发者，后端的内容就不展开了）注意配置ip白名单 见上一步！！！</p>
@@ -283,7 +283,7 @@ wxsignGet(ob).then(res =&gt; {
 <p>link // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致</p>
 </blockquote>
 <blockquote>
-<p>开发的时候，一定要下载一个微信开发者工具，在那里面进行微信分享测试。代码开启 debug 模式后，如果签名错误，微信开发者工具会直接提醒你的。判断签名是否正确非常重要。</p>
+<p>开发的时候，一定要下载一个微信开发者工具，在那里面进行微信分享测试。代码开启 debug 模式后，如果签名错误，微信开发者工具会直接提醒你的。判断签名是否正确非常重要。<br><a href="https://mp.weixin.qq.com/debug/cgi-bin/sandboxinfo?action=showinfo&amp;t=sandbox/index" target="_blank" rel="noopener">https://mp.weixin.qq.com/debug/cgi-bin/sandboxinfo?action=showinfo&amp;t=sandbox/index</a> 测试接口</p>
 </blockquote>
 
       
