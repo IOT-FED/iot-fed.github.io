@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="星月夜的博客">
 <meta property="og:description" content="&amp;emsp;&amp;emsp;由于项目需求，要对h5页面进行微信分享，朋友和朋友圈功能。现对踩过的坑和流程进行总结。  首先你要有个微信公众号，公司级的。个人的不支持。   登录微信公众平台配置后端的服务器ip白名单和js安全域名https://github.com/lyq12580/CODE/blob/master/ip.pnghttps://github.com/lyq12580/CODE/blob">
 <meta property="og:locale" content="zh_cn">
-<meta property="og:updated_time" content="2019-01-22T02:12:13.656Z">
+<meta property="og:updated_time" content="2019-01-22T02:17:03.338Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="前端h5微信分享功能(vue)">
 <meta name="twitter:description" content="&amp;emsp;&amp;emsp;由于项目需求，要对h5页面进行微信分享，朋友和朋友圈功能。现对踩过的坑和流程进行总结。  首先你要有个微信公众号，公司级的。个人的不支持。   登录微信公众平台配置后端的服务器ip白名单和js安全域名https://github.com/lyq12580/CODE/blob/master/ip.pnghttps://github.com/lyq12580/CODE/blob">
@@ -189,8 +189,7 @@
 <blockquote>
 <p>后端获取微信签名<br>这个步骤需要后端服务器和微信服务器进行交互，获得「网页授权access_token」，根据 access_token 把关键的几个参数算出来，传给前端。这几个参数分别是：<br>appId , timestamp , nonceStr , signature<br>（因为本文主要针对前端开发者，后端的内容就不展开了）注意配置ip白名单 见上一步！！！</p>
 </blockquote>
-<p>##前端代码</p>
-<p>1.引入微信JSSDK;</p>
+<h2 id="前端代码"><a href="#前端代码" class="headerlink" title="前端代码"></a>前端代码</h2><p>1.引入微信JSSDK;</p>
 <blockquote>
 <p>script标签引入<br>“<a href="https://res.wx.qq.com/open/js/jweixin-1.0.0.js&quot;" target="_blank" rel="noopener">https://res.wx.qq.com/open/js/jweixin-1.0.0.js&quot;</a></p>
 </blockquote>
